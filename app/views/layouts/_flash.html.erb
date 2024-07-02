@@ -1,0 +1,16 @@
+<% flash.each do |flash_type, message| %>
+  <div
+    class="flash__message <%= flash_type %>"
+    data-controller="removals"
+    data-action="animationend->removals#remove"
+  >
+    <div class="message-text">
+      <div class="flash-icon <%= flash_type %>">
+        <i class="<%= flash_type == 'notice' ? 'fa-solid fa-check' : 'fa-solid fa-exclamation'%>"></i>
+      </div>
+      <%= message %>
+    </div>
+
+    <button data-action="click->removals#remove"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+<% end %>

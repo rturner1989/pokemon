@@ -1,0 +1,83 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/pokemon
+      - node_modules:/pokemon/node_modules
+    depends_on:
+      - db_rails
+      - redis
+      - selenium-hub
+    restart: always
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env
+  db_rails:
+    image: mysql:8
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - "${DB_RAILS_PORT_EXT}:${DB_RAILS_PORT_INT}"
+    cap_add:
+      - "SYS_NICE"
+  redis:
+    image: "redis:latest"
+    command: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis:/data"
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - ".:/pokemon"
+      - "/pokemon/tmp"
+    depends_on:
+      - redis
+    env_file:
+      - .env
+  # Unit tests
+  selenium-hub:
+    image: selenium/hub:latest
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:latest
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    env_file:
+      - .env
+  edge:
+    image: selenium/node-edge:latest
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    env_file:
+      - .env
+  firefox:
+    image: selenium/node-firefox:latest
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    env_file:
+      - .env
+
+volumes:
+  node_modules:
+  redis:
+  mysql_data:

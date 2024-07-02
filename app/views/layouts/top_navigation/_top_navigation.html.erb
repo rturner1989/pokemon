@@ -1,0 +1,11 @@
+<div id="navbar-container">
+  <nav id="home-links-container">
+    <% navigation_links.each do |link| %>
+      <%= render('layouts/top_navigation/navigation_link', href: link[:href],
+                                                           action: link[:action],
+                                                           controller: link[:controller],
+                                                           svg_filename: link[:svg_filename],
+                                                           tooltip_content: link[:tooltip_content]) %>
+    <% end %>
+  </nav>
+</div>
