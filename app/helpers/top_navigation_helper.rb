@@ -23,7 +23,7 @@ module TopNavigationHelper
         action: 'pokedex',
         controller: 'users',
         key: :friends,
-        svg_filename: 'pokedex-solid',
+        svg_filename: 'pokedex-outline',
         href: '#',
         tooltip_content: 'Pokedex'
       },
@@ -31,7 +31,7 @@ module TopNavigationHelper
         action: 'tcg',
         controller: 'tcg',
         key: :marketplace,
-        svg_filename: 'tcg-solid',
+        svg_filename: 'tcg-stack-solid',
         href: '#',
         tooltip_content: 'TCG'
       },
