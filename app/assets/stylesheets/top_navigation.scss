@@ -16,7 +16,8 @@
     
         .home-link {
             min-width: 100px;
-            display: inline-block;
+            display: flex;
+            justify-content: center;
             position: relative;
             background-color: transparent;
             border: 1px solid transparent;
@@ -32,7 +33,7 @@
                 fill: black;
                 transition: fill 0.15s ease-in-out;
             }
-
+            
             &::after {
                 position: absolute;
                 content: "";
@@ -71,6 +72,12 @@
                 &:hover, &::after, &.nav-active {
                     background-color: blue;
                 }
+            }
+        }
+
+        .nav-active {
+            svg {
+                fill: white;
             }
         }
     }
