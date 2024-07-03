@@ -16,15 +16,15 @@ module TopNavigationHelper
         controller: 'home',
         key: :index,
         svg_filename: 'pikachu',
-        href: '#',
+        href: root_path,
         tooltip_content: 'Home'
       },
       {
         action: 'pokedex',
-        controller: 'users',
+        controller: 'pokedex',
         key: :friends,
         svg_filename: 'pokedex-outline',
-        href: '#',
+        href: pokedex_index_path,
         tooltip_content: 'Pokedex'
       },
       {
